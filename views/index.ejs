@@ -1,25 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="ashcan">
 
 <head>
-  <title>
-    <%= title %>
-  </title>
-  <link rel='stylesheet' href='/css/style.css' />
+  <base href="/">
+  <title>Ashcan : A Place For Prototypes</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
-
+  <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angular-ui-router/1.0.0-rc.1/angular-ui-router.min.js"></script>
+  <script src="/js/glogin.js"></script>
+  <script src="/js/index.js"></script>
   <meta name="google-signin-client_id" content="1079233913624-v8h0hnrrbkalbhf5upetcluuepvt26og.apps.googleusercontent.com">
 </head>
 
 <body>
-  <h1><%= title %></h1>
-  <p>Welcome to
-    <%= title %>
-  </p>
+  <ui-view></ui-view>
 
   <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
   <a href="#" onclick="signOut();">Sign out</a>
+
   <script>
     function signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
@@ -27,17 +30,15 @@
         console.log('User signed out.');
       });
     }
-  </script>
 
-  <script>
     function onSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();
       var id_token = googleUser.getAuthResponse().id_token;
 
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+      // console.log('ID: ' + profile.getId());
+      // console.log('Name: ' + profile.getName());
+      // console.log('Image URL: ' + profile.getImageUrl());
+      // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
       var xhr = new XMLHttpRequest();
       xhr.open('POST', '/tokensignin');
@@ -48,7 +49,6 @@
       xhr.send('idtoken=' + id_token);
     }
   </script>
-
 </body>
 
 </html>
