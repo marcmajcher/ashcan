@@ -27,9 +27,11 @@ router.post('/gsignin', (req, res, next) => {
       User.signin(payload)
         .then((response) => {
           // TK set session
-
-          delete response[0].id;
-          res.send(response[0]);
+          if (Array.isArray(response)) {
+            response = response[0];
+          }
+          delete response.id;
+          res.send(response);
         })
         .catch((error) => {
           const err = new Error(`User GID already exists: ${error}`);

@@ -3,9 +3,12 @@
 /* eslint-env node */
 
 const userDb = 'users';
+const util = require('../util');
 const Model = require('./_model');
 
 const User = new Model(userDb);
+
+User.get = gid => util.knex(userDb).where('gid', gid).first();
 
 User.signin = (data) => {
   // TK check if user exists before creating
@@ -18,7 +21,13 @@ User.signin = (data) => {
     locale: data.locale,
   };
 
-  return User.create(userData);
+  return User.get(data.sub)
+    .then((response) => {
+      if (typeof response === 'undefined') {
+        return User.create(userData);
+      }
+      return response;
+    });
 };
 
 module.exports = User;
