@@ -3,11 +3,6 @@
 /* eslint-env angular, browser */
 
 (() => {
-  angular.module('ashcan').component('home', {
-    controller: HomeController,
-    templateUrl: '/tmpl/home.html'
-  });
-
   function HomeController() {
     const vm = this;
 
@@ -15,4 +10,9 @@
       vm.header = 'HOME';
     };
   }
+
+  angular.module('ashcan').component('home', {
+    controller: HomeController,
+    templateUrl: '/tmpl/home.html'
+  });
 })();

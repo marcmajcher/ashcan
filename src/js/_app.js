@@ -6,7 +6,11 @@
   function routeConfig($stateProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
 
-    $stateProvider.state({name: 'home', url: '/', component: 'home'});
+    $stateProvider.state({
+      name: 'home',
+      url: '/',
+      component: 'home'
+    });
     // .state({name: 'user', url: '/user/:id', component: 'user'});
   }
 

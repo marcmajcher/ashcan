@@ -23,6 +23,8 @@ const lintable = [
   'knexfile.js',
   'migrations/**/*.js',
   'seeds/**/*.js',
+  'src/js/**/*.js',
+  'test/**/*.js',
   '!node_modules/**',
   '!app/static/**'
 ];
