@@ -23,6 +23,10 @@
 * Set up org for google auth and email?
 * Host on webfaction?
 
+## Tests
+
+* Write tests for signin/signout 
+
 ## Bugs
 
 * Google signin button flash when load and already logged in

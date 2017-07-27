@@ -44,7 +44,7 @@ router.post('/gsignin', (req, res, next) => {
 });
 
 /* Log player out and return them to the index page */
-router.get('/logout', (req, res) => {
+router.post('/signout', (req, res) => {
   req.session = null;
   res.redirect('/');
 });

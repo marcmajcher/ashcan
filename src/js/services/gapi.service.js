@@ -66,6 +66,10 @@
     this.signOut = function signOut() {
       this.auth2.signOut().then(() => {
         this.signinChanged(false);
+        $http.post('/signout')
+          .catch((error) => {
+            console.error(error); // eslint-disable-line no-console
+          });
       });
     };
 
