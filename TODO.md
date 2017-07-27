@@ -19,3 +19,7 @@ profile pages
 not logged in - feed of stuff coming up
 
 Set up org for google auth and email?
+
+## Bugs
+
+* Google signin button flash when load and already logged in 
