@@ -9,10 +9,12 @@ const CLIENT_ID = '1079233913624-v8h0hnrrbkalbhf5upetcluuepvt26og.apps.googleuse
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  res.render('index', { title: 'Express' });
+  res.render('index', {
+    title: 'Express'
+  });
 });
 
-router.post('/tokensignin', (req, res) => {
+router.post('/gsignin', (req, res) => {
   // https://developers.google.com/identity/sign-in/web/backend-auth
   const token = req.body.idtoken;
 
@@ -21,6 +23,7 @@ router.post('/tokensignin', (req, res) => {
   client.verifyIdToken(token, CLIENT_ID, (e, login) => {
     const payload = login.getPayload();
     if (payload.aud === CLIENT_ID) {
+      // console.log(payload);
       res.send(payload.sub); // user id
     }
   });

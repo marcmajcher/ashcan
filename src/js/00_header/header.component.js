@@ -19,10 +19,6 @@
     vm.signOut = function signOut() {
       GapiService.signOut();
     };
-
-    vm.check = function check() {
-      vm.profile = GapiService.profile;
-    };
   }
   HeaderController.$inject = ['GapiService', '$window'];
 

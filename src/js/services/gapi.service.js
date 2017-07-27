@@ -34,15 +34,19 @@
         this.profile.imageUrl = profile.getImageUrl();
         this.profile.email = profile.getEmail();
 
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', '/tokensignin');
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onload = () => {
-          this.profile.signedIn = true;
-          $rootScope.$digest();
-          console.log(`Signed in as: ${xhr.responseText}`); // eslint-disable-line
-        };
-        xhr.send(`idtoken=${googleUser.getAuthResponse().id_token}`);
+        $http.post('/gsignin', `idtoken=${googleUser.getAuthResponse().id_token}`, {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          })
+          .then((response) => {
+            this.profile.signedIn = true;
+            $rootScope.$digest();
+            console.log(`Signed in as: ${response.data}`); // eslint-disable-line
+          })
+          .catch((error) => {
+            console.log(error); // eslint-disable-line
+          });
       }
       else {
         this.profile.signedIn = false;
@@ -50,7 +54,8 @@
       }
     };
 
-    this.userChanged = function userChanged(/* user */) {
+    this.userChanged = function userChanged() {
+      /* user */
       // console.log('userChanged()');
     };
 
