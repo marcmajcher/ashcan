@@ -39,9 +39,9 @@
               'Content-Type': 'application/x-www-form-urlencoded'
             }
           })
-          .then((response) => {
+          .then(() => { // (response)
             this.profile.signedIn = true;
-            console.log(response.data); // eslint-disable-line no-console
+            console.log(this.profile); // eslint-disable-line no-console
           })
           .catch((error) => {
             console.error(error); // eslint-disable-line no-console

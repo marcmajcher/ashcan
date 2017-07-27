@@ -3,6 +3,7 @@
 
 ## Next
 
+* Create user view after login
 * Update user database and model
 * Create game migration and model
 * Create release migration and model
@@ -21,11 +22,11 @@
 * not logged in - feed of stuff coming up
 
 * Set up org for google auth and email?
-* Host on webfaction?
+* Host on webfaction
 
 ## Tests
 
-* Write tests for signin/signout 
+* Write tests for signin/signout
 
 ## Bugs
 

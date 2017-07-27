@@ -19,9 +19,9 @@ router.get('/', (req, res) => {
 router.post('/gsignin', (req, res, next) => {
   // https://developers.google.com/identity/sign-in/web/backend-auth
   const token = req.body.idtoken;
-
   const auth = new GoogleAuth();
   const client = new auth.OAuth2(CLIENT_ID, '', '');
+
   client.verifyIdToken(token, CLIENT_ID, (e, login) => {
     const payload = login.getPayload();
     if (payload.aud === CLIENT_ID) {
