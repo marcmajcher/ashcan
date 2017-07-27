@@ -11,10 +11,11 @@ const CLIENT_ID = '1079233913624-v8h0hnrrbkalbhf5upetcluuepvt26og.apps.googleuse
 /* GET home page. */
 router.get('/', (req, res) => {
   res.render('index', {
-    title: 'Express'
+    title: 'Ashcan - A Place for Prototypes'
   });
 });
 
+/* Log user in with Google sign-in */
 router.post('/gsignin', (req, res, next) => {
   // https://developers.google.com/identity/sign-in/web/backend-auth
   const token = req.body.idtoken;
@@ -26,11 +27,11 @@ router.post('/gsignin', (req, res, next) => {
     if (payload.aud === CLIENT_ID) {
       User.signin(payload)
         .then((response) => {
-          // TK set session
           if (Array.isArray(response)) {
             response = response[0];
           }
           delete response.id;
+          req.session.user = response;
           res.send(response);
         })
         .catch((error) => {
@@ -40,6 +41,17 @@ router.post('/gsignin', (req, res, next) => {
         });
     }
   });
+});
+
+/* Log player out and return them to the index page */
+router.get('/logout', (req, res) => {
+  req.session = null;
+  res.redirect('/');
+});
+
+/* smoke test route */
+router.get('/booyah', (req, res) => {
+  res.send('booyah');
 });
 
 module.exports = router;

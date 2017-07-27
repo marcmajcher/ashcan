@@ -41,21 +41,25 @@
           })
           .then((response) => {
             this.profile.signedIn = true;
-            // $rootScope.$digest();
-            console.log(response.data); // eslint-disable-line
+            console.log(response.data); // eslint-disable-line no-console
           })
           .catch((error) => {
-            console.log(error); // eslint-disable-line
+            console.error(error); // eslint-disable-line no-console
           });
       }
       else {
+        this.profile.name = '';
+        this.profile.firstName = '';
+        this.profile.lastName = '';
+        this.profile.imageUrl = '';
+        this.profile.email = '';
         this.profile.signedIn = false;
         $rootScope.$digest();
       }
     };
 
     this.userChanged = function userChanged() {
-      /* user */
+      /* (user) */
       // console.log('userChanged()');
     };
 

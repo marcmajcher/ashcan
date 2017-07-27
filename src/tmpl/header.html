@@ -27,7 +27,9 @@
         <li>
           <div ng-hide="$ctrl.profile.signedIn" class="g-signin2" data-onsuccess="onSignIn"></div>
           <div ng-if="$ctrl.profile.signedIn" class="navbar-text">
-            Welcome, {{$ctrl.profile.firstName}}! | <a href="#" ng-click="$ctrl.signOut()">Sign out</a>
+            Welcome, {{$ctrl.profile.firstName}}!
+            <img class="profile-image" ng-src="{{$ctrl.profile.imageUrl}}" alt="{{$ctrl.profile.firstName}}"> |
+            <a class="navbar-link" href="#" ng-click="$ctrl.signOut()">Sign out</a>
           </div>
         </li>
       </ul>

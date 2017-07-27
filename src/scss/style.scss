@@ -1,5 +1,6 @@
 body {
   font: 14px Helvetica, Arial, sans-serif;
+  margin-top: 100px;
 }
 
 .navbar {
@@ -8,4 +9,9 @@ body {
 
 .g-signin2 {
   margin-top: 5px;
+}
+
+.profile-image {
+  height: 32px;
+  width: 32px;
 }
