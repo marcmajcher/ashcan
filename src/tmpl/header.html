@@ -1,5 +1,7 @@
 <div class="header">
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-  <a href="#" ng-click="$ctrl.signOut();">Sign out</a>
+  <div ng-hide="$ctrl.profile.signedIn" class="g-signin2" data-onsuccess="onSignIn"></div>
+  <div ng-if="$ctrl.profile.signedIn">
+    Welcome, {{$ctrl.profile.firstName}}! | <a href="#" ng-click="$ctrl.signOut()">Sign out</a>
+  </div>
 </div>
 <script src="https://apis.google.com/js/platform.js?onload=initGapi" async defer></script>

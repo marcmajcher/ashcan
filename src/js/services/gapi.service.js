@@ -3,7 +3,11 @@
 
   /* eslint-env node */
 
-  function gapiService(/* $http */) {
+  function gapiService($rootScope, $http) {
+    this.profile = {
+      signedIn: false
+    };
+
     this.init = function init(gapi) {
       this.gapi = gapi;
       this.gapi.load('auth2', this.signIn.bind(this));
@@ -19,31 +23,30 @@
       }
     };
 
-    this.signinChanged = function signinChanged(isSignedIn) {
-      if (isSignedIn) {
+    this.signinChanged = function signinChanged(signedIn) {
+      if (signedIn) {
         const googleUser = this.auth2.currentUser.get();
-        // const authResponse = googleUser.getAuthResponse();
         const profile = googleUser.getBasicProfile();
-        console.log(profile); // eslint-disable-line
-        const idToken = googleUser.getAuthResponse().id_token;
 
-        console.log('ID: ' + profile.getId());
-        console.log('Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail()); // null if not scoped
+        this.profile.name = profile.getName();
+        this.profile.firstName = profile.getGivenName();
+        this.profile.lastName = profile.getFamilyName();
+        this.profile.imageUrl = profile.getImageUrl();
+        this.profile.email = profile.getEmail();
 
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '/tokensignin');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = () => {
-          console.log('Signed in as: ' + xhr.responseText);
+          this.profile.signedIn = true;
+          $rootScope.$digest();
+          console.log(`Signed in as: ${xhr.responseText}`); // eslint-disable-line
         };
-        xhr.send('idtoken=' + idToken);
+        xhr.send(`idtoken=${googleUser.getAuthResponse().id_token}`);
       }
       else {
-        // console.log('the user must not be signed in if this is printing');
-        // $scope.user = {};
-        // $scope.$digest();
+        this.profile.signedIn = false;
+        $rootScope.$digest();
       }
     };
 
@@ -64,7 +67,7 @@
     };
   }
 
-  gapiService.$inject = ['$http'];
+  gapiService.$inject = ['$rootScope', '$http'];
 
   angular.module('ashcan').service('GapiService', gapiService);
 })();

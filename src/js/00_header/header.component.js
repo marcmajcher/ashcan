@@ -11,8 +11,17 @@
       GapiService.init(gapi);
     };
 
+    vm.$onInit = function onInit() {
+      vm.profile = GapiService.profile;
+      vm.signedIn = GapiService.signedIn;
+    };
+
     vm.signOut = function signOut() {
       GapiService.signOut();
+    };
+
+    vm.check = function check() {
+      vm.profile = GapiService.profile;
     };
   }
   HeaderController.$inject = ['GapiService', '$window'];
