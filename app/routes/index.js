@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/gsignin', (req, res) => {
+router.post('/gsignin', (req, res, next) => {
   // https://developers.google.com/identity/sign-in/web/backend-auth
   const token = req.body.idtoken;
 
@@ -32,7 +32,9 @@ router.post('/gsignin', (req, res) => {
           res.send(response[0]);
         })
         .catch((error) => {
-          console.error(error); // eslint-disable-line no-console
+          const err = new Error(`User GID already exists: ${error}`);
+          err.status = 500;
+          next(err);
         });
     }
   });
