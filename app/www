@@ -4,8 +4,8 @@
 
 /* eslint-env node */
 
-const app = require('../app');
-const debug = require('debug')('tiaic:server');
+const app = require('./app');
+const debug = require('debug')('ashcan:server');
 const http = require('http');
 
 function normalizePort(val) {
