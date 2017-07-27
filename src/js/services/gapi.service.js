@@ -41,8 +41,8 @@
           })
           .then((response) => {
             this.profile.signedIn = true;
-            $rootScope.$digest();
-            console.log(`Signed in as: ${response.data}`); // eslint-disable-line
+            // $rootScope.$digest();
+            console.log(response.data); // eslint-disable-line
           })
           .catch((error) => {
             console.log(error); // eslint-disable-line

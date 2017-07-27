@@ -4,6 +4,7 @@
 
 const express = require('express');
 const router = express.Router();
+const User = require('../models/user');
 const GoogleAuth = require('google-auth-library');
 const CLIENT_ID = '1079233913624-v8h0hnrrbkalbhf5upetcluuepvt26og.apps.googleusercontent.com';
 
@@ -23,8 +24,16 @@ router.post('/gsignin', (req, res) => {
   client.verifyIdToken(token, CLIENT_ID, (e, login) => {
     const payload = login.getPayload();
     if (payload.aud === CLIENT_ID) {
-      // console.log(payload);
-      res.send(payload.sub); // user id
+      User.signin(payload)
+        .then((response) => {
+          // TK set session
+
+          delete response[0].id;
+          res.send(response[0]);
+        })
+        .catch((error) => {
+          console.error(error); // eslint-disable-line no-console
+        });
     }
   });
 });
