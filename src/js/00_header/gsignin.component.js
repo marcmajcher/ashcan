@@ -4,7 +4,7 @@
 /* globals gapi */
 
 (() => {
-  function GsigninController(GapiService, $window) {
+  function GsigninController(GapiService, $window, $state) {
     const vm = this;
 
     $window.initGapi = () => {
@@ -15,14 +15,16 @@
       vm.profile = GapiService.profile;
       GapiService.profile.onLogin = () => {
         console.log(vm.profile); // eslint-disable-line no-console
+        $state.go('account');
       };
     };
 
     vm.signOut = function signOut() {
+      $state.go('home');
       GapiService.signOut();
     };
   }
-  GsigninController.$inject = ['GapiService', '$window'];
+  GsigninController.$inject = ['GapiService', '$window', '$state'];
 
   angular.module('ashcan').component('gsignin', {
     controller: GsigninController,

@@ -8,13 +8,6 @@ const User = require('../models/user');
 const GoogleAuth = require('google-auth-library');
 const CLIENT_ID = '1079233913624-v8h0hnrrbkalbhf5upetcluuepvt26og.apps.googleusercontent.com';
 
-/* GET home page. */
-router.get('/', (req, res) => {
-  res.render('index', {
-    title: 'Ashcan - A Place for Prototypes'
-  });
-});
-
 /* Log user in with Google sign-in */
 router.post('/gsignin', (req, res, next) => {
   // https://developers.google.com/identity/sign-in/web/backend-auth

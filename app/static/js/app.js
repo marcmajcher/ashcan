@@ -29,7 +29,7 @@
 /* globals gapi */
 
 (function () {
-  function GsigninController(GapiService, $window) {
+  function GsigninController(GapiService, $window, $state) {
     var vm = this;
 
     $window.initGapi = function () {
@@ -40,14 +40,16 @@
       vm.profile = GapiService.profile;
       GapiService.profile.onLogin = function () {
         console.log(vm.profile); // eslint-disable-line no-console
+        $state.go('account');
       };
     };
 
     vm.signOut = function signOut() {
+      $state.go('home');
       GapiService.signOut();
     };
   }
-  GsigninController.$inject = ['GapiService', '$window'];
+  GsigninController.$inject = ['GapiService', '$window', '$state'];
 
   angular.module('ashcan').component('gsignin', {
     controller: GsigninController,
@@ -71,24 +73,6 @@
   angular.module('ashcan').component('ashHeader', {
     controller: HeaderController,
     templateUrl: '/tmpl/header.html'
-  });
-})();
-'use strict';
-
-/* eslint-env angular, browser */
-
-(function () {
-  function HomeController() {
-    var vm = this;
-
-    vm.$onInit = function init() {
-      vm.header = 'HOME';
-    };
-  }
-
-  angular.module('ashcan').component('home', {
-    controller: HomeController,
-    templateUrl: '/tmpl/home.html'
   });
 })();
 'use strict';
@@ -200,4 +184,22 @@
   gapiService.$inject = ['$rootScope', '$http'];
 
   angular.module('ashcan').service('GapiService', gapiService);
+})();
+'use strict';
+
+/* eslint-env angular, browser */
+
+(function () {
+  function HomeController() {
+    var vm = this;
+
+    vm.$onInit = function init() {
+      vm.header = 'HOME';
+    };
+  }
+
+  angular.module('ashcan').component('home', {
+    controller: HomeController,
+    templateUrl: '/tmpl/home.html'
+  });
 })();

@@ -13,6 +13,7 @@ const session = require('cookie-session');
 const randomString = require('randomstring');
 const methodOverride = require('method-override');
 
+const rootDir = 'static';
 const index = require('./routes/index');
 const api = require('./routes/api');
 const app = express();
@@ -21,7 +22,7 @@ app.disable('x-powered-by');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, rootDir, 'favicon.ico')));
 app.use(methodOverride('_method'));
 
 app.use(logger('dev'));
@@ -30,7 +31,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static(path.join(__dirname, rootDir)));
 
 const numKeys = Math.ceil(Math.random() * 10) + 10; // eslint-disable-line no-magic-numbers
 const randomKeys = [];
@@ -44,6 +45,12 @@ app.use(sessionMiddleware);
 
 app.use('/', index);
 app.use('/api', api);
+
+app.use('*', (req, res) => {
+  res.sendFile('index.html', {
+    root: path.join(__dirname, rootDir)
+  });
+});
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
