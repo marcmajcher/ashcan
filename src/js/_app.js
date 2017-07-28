@@ -7,11 +7,15 @@
     $locationProvider.html5Mode(true);
 
     $stateProvider.state({
-      name: 'home',
-      url: '/',
-      component: 'home'
-    });
-    // .state({name: 'user', url: '/user/:id', component: 'user'});
+        name: 'home',
+        url: '/',
+        component: 'home'
+      })
+      .state({
+        name: 'account',
+        url: '/account',
+        component: 'account'
+      });
   }
 
   routeConfig.$inject = ['$stateProvider', '$locationProvider'];

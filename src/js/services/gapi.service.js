@@ -5,7 +5,8 @@
 
   function gapiService($rootScope, $http) {
     this.profile = {
-      signedIn: false
+      signedIn: false,
+      onLogin: () => {}
     };
 
     this.init = function init(gapi) {
@@ -41,7 +42,7 @@
           })
           .then(() => { // (response)
             this.profile.signedIn = true;
-            console.log(this.profile); // eslint-disable-line no-console
+            this.profile.onLogin();
           })
           .catch((error) => {
             console.error(error); // eslint-disable-line no-console

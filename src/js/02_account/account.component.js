@@ -3,17 +3,16 @@
 /* eslint-env node */
 
 (() => {
-  function UserController($stateParams) {
+  function AccountController(GapiService) {
     const vm = this;
 
     vm.$onInit = function init() {
-      vm.user = `USER ${$stateParams.id}`;
+      vm.profile = GapiService.profile;
     };
   }
-  // UserController.$inject = ['$stateParams'];
 
-  angular.module('ashcan').component('user', {
-    controller: UserController,
+  angular.module('ashcan').component('account', {
+    controller: AccountController,
     templateUrl: '/tmpl/account.html'
   });
 })();

@@ -1,26 +1,16 @@
 'use strict';
 
 /* eslint-env angular, browser */
-/* globals gapi */
 
 (() => {
-  function HeaderController(GapiService, $window) {
+  function HeaderController(GapiService) {
     const vm = this;
-
-    $window.initGapi = () => {
-      GapiService.init(gapi);
-    };
 
     vm.$onInit = function onInit() {
       vm.profile = GapiService.profile;
-      vm.signedIn = GapiService.signedIn;
-    };
-
-    vm.signOut = function signOut() {
-      GapiService.signOut();
     };
   }
-  HeaderController.$inject = ['GapiService', '$window'];
+  HeaderController.$inject = ['GapiService'];
 
   angular.module('ashcan').component('ashHeader', {
     controller: HeaderController,

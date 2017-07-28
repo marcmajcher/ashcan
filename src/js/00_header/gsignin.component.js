@@ -1,0 +1,31 @@
+'use strict';
+
+/* eslint-env angular, browser */
+/* globals gapi */
+
+(() => {
+  function GsigninController(GapiService, $window) {
+    const vm = this;
+
+    $window.initGapi = () => {
+      GapiService.init(gapi);
+    };
+
+    vm.$onInit = function onInit() {
+      vm.profile = GapiService.profile;
+      GapiService.profile.onLogin = () => {
+        console.log(vm.profile); // eslint-disable-line no-console
+      };
+    };
+
+    vm.signOut = function signOut() {
+      GapiService.signOut();
+    };
+  }
+  GsigninController.$inject = ['GapiService', '$window'];
+
+  angular.module('ashcan').component('gsignin', {
+    controller: GsigninController,
+    templateUrl: '/tmpl/gsignin.html'
+  });
+})();

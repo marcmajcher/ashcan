@@ -12,8 +12,11 @@
       name: 'home',
       url: '/',
       component: 'home'
+    }).state({
+      name: 'account',
+      url: '/account',
+      component: 'account'
     });
-    // .state({name: 'user', url: '/user/:id', component: 'user'});
   }
 
   routeConfig.$inject = ['$stateProvider', '$locationProvider'];
@@ -26,7 +29,7 @@
 /* globals gapi */
 
 (function () {
-  function HeaderController(GapiService, $window) {
+  function GsigninController(GapiService, $window) {
     var vm = this;
 
     $window.initGapi = function () {
@@ -35,14 +38,35 @@
 
     vm.$onInit = function onInit() {
       vm.profile = GapiService.profile;
-      vm.signedIn = GapiService.signedIn;
+      GapiService.profile.onLogin = function () {
+        console.log(vm.profile); // eslint-disable-line no-console
+      };
     };
 
     vm.signOut = function signOut() {
       GapiService.signOut();
     };
   }
-  HeaderController.$inject = ['GapiService', '$window'];
+  GsigninController.$inject = ['GapiService', '$window'];
+
+  angular.module('ashcan').component('gsignin', {
+    controller: GsigninController,
+    templateUrl: '/tmpl/gsignin.html'
+  });
+})();
+'use strict';
+
+/* eslint-env angular, browser */
+
+(function () {
+  function HeaderController(GapiService) {
+    var vm = this;
+
+    vm.$onInit = function onInit() {
+      vm.profile = GapiService.profile;
+    };
+  }
+  HeaderController.$inject = ['GapiService'];
 
   angular.module('ashcan').component('ashHeader', {
     controller: HeaderController,
@@ -72,17 +96,16 @@
 /* eslint-env node */
 
 (function () {
-  function UserController($stateParams) {
+  function AccountController(GapiService) {
     var vm = this;
 
     vm.$onInit = function init() {
-      vm.user = 'USER ' + $stateParams.id;
+      vm.profile = GapiService.profile;
     };
   }
-  // UserController.$inject = ['$stateParams'];
 
-  angular.module('ashcan').component('user', {
-    controller: UserController,
+  angular.module('ashcan').component('account', {
+    controller: AccountController,
     templateUrl: '/tmpl/account.html'
   });
 })();
@@ -95,7 +118,8 @@
 
   function gapiService($rootScope, $http) {
     this.profile = {
-      signedIn: false
+      signedIn: false,
+      onLogin: function onLogin() {}
     };
 
     this.init = function init(gapi) {
@@ -133,7 +157,7 @@
         }).then(function () {
           // (response)
           _this.profile.signedIn = true;
-          console.log(_this.profile); // eslint-disable-line no-console
+          _this.profile.onLogin();
         }).catch(function (error) {
           console.error(error); // eslint-disable-line no-console
         });
