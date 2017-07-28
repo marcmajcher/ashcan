@@ -22,7 +22,8 @@
 * not logged in - feed of stuff coming up
 
 * Set up org for google auth and email?
-* Host on webfaction
+* Hook up database on webfaction server
+  * Set production env, etc
 
 ## Tests
 
