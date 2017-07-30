@@ -3,7 +3,7 @@
 /* eslint-env node */
 
 (() => {
-  function AccountController(GapiService) {
+  function HomeController(GapiService) {
     const vm = this;
 
     vm.$onInit = function init() {
@@ -11,8 +11,8 @@
     };
   }
 
-  angular.module('ashcan').component('account', {
-    controller: AccountController,
-    templateUrl: '/tmpl/account.html'
+  angular.module('ashcan').component('home', {
+    controller: HomeController,
+    templateUrl: '/tmpl/home.html'
   });
 })();

@@ -15,12 +15,12 @@
       vm.profile = GapiService.profile;
       GapiService.profile.onLogin = () => {
         console.log(vm.profile); // eslint-disable-line no-console
-        $state.go('account');
+        $state.go('home');
       };
     };
 
     vm.signOut = function signOut() {
-      $state.go('home');
+      $state.go('index');
       GapiService.signOut();
     };
   }

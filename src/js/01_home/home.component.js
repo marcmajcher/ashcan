@@ -3,16 +3,16 @@
 /* eslint-env angular, browser */
 
 (() => {
-  function HomeController() {
+  function IndexController() {
     const vm = this;
 
     vm.$onInit = function init() {
-      vm.header = 'HOME';
+      vm.header = 'INDEX';
     };
   }
 
-  angular.module('ashcan').component('home', {
-    controller: HomeController,
-    templateUrl: '/tmpl/home.html'
+  angular.module('ashcan').component('index', {
+    controller: IndexController,
+    templateUrl: '/tmpl/index.html'
   });
 })();

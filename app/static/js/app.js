@@ -9,13 +9,13 @@
     $locationProvider.html5Mode(true);
 
     $stateProvider.state({
-      name: 'home',
+      name: 'index',
       url: '/',
-      component: 'home'
+      component: 'index'
     }).state({
-      name: 'account',
-      url: '/account',
-      component: 'account'
+      name: 'home',
+      url: '/home',
+      component: 'home'
     });
   }
 
@@ -40,12 +40,12 @@
       vm.profile = GapiService.profile;
       GapiService.profile.onLogin = function () {
         console.log(vm.profile); // eslint-disable-line no-console
-        $state.go('account');
+        $state.go('home');
       };
     };
 
     vm.signOut = function signOut() {
-      $state.go('home');
+      $state.go('index');
       GapiService.signOut();
     };
   }
@@ -77,10 +77,28 @@
 })();
 'use strict';
 
+/* eslint-env angular, browser */
+
+(function () {
+  function IndexController() {
+    var vm = this;
+
+    vm.$onInit = function init() {
+      vm.header = 'INDEX';
+    };
+  }
+
+  angular.module('ashcan').component('index', {
+    controller: IndexController,
+    templateUrl: '/tmpl/index.html'
+  });
+})();
+'use strict';
+
 /* eslint-env node */
 
 (function () {
-  function AccountController(GapiService) {
+  function HomeController(GapiService) {
     var vm = this;
 
     vm.$onInit = function init() {
@@ -88,9 +106,9 @@
     };
   }
 
-  angular.module('ashcan').component('account', {
-    controller: AccountController,
-    templateUrl: '/tmpl/account.html'
+  angular.module('ashcan').component('home', {
+    controller: HomeController,
+    templateUrl: '/tmpl/home.html'
   });
 })();
 'use strict';
@@ -184,22 +202,4 @@
   gapiService.$inject = ['$rootScope', '$http'];
 
   angular.module('ashcan').service('GapiService', gapiService);
-})();
-'use strict';
-
-/* eslint-env angular, browser */
-
-(function () {
-  function HomeController() {
-    var vm = this;
-
-    vm.$onInit = function init() {
-      vm.header = 'HOME';
-    };
-  }
-
-  angular.module('ashcan').component('home', {
-    controller: HomeController,
-    templateUrl: '/tmpl/home.html'
-  });
 })();

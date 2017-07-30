@@ -7,14 +7,14 @@
     $locationProvider.html5Mode(true);
 
     $stateProvider.state({
-        name: 'home',
+        name: 'index',
         url: '/',
-        component: 'home'
+        component: 'index'
       })
       .state({
-        name: 'account',
-        url: '/account',
-        component: 'account'
+        name: 'home',
+        url: '/home',
+        component: 'home'
       });
   }
 
