@@ -61,7 +61,6 @@
 
     this.userChanged = function userChanged() {
       /* (user) */
-      // console.log('userChanged()');
     };
 
     this.signOut = function signOut() {

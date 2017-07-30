@@ -39,7 +39,6 @@
     vm.$onInit = function onInit() {
       vm.profile = GapiService.profile;
       GapiService.profile.onLogin = function () {
-        console.log(vm.profile); // eslint-disable-line no-console
         $state.go('home');
       };
     };
@@ -176,7 +175,6 @@
 
     this.userChanged = function userChanged() {
       /* (user) */
-      // console.log('userChanged()');
     };
 
     this.signOut = function signOut() {

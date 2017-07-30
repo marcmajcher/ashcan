@@ -24,6 +24,9 @@
 * Set up org for google auth and email?
 * Hook up database on webfaction server
   * Set production env, etc
+* Add company name to user
+* Add "about me" to user for public profile
+* Let user edit profile photo
 
 ## Tests
 
