@@ -79,17 +79,15 @@
 /* eslint-env angular, browser */
 
 (function () {
-  function IndexController() {
+  function NewGameFormController() {
     var vm = this;
 
-    vm.$onInit = function init() {
-      vm.header = 'INDEX';
-    };
+    vm.$onInit = function onInit() {};
   }
 
-  angular.module('ashcan').component('index', {
-    controller: IndexController,
-    templateUrl: '/tmpl/index.html'
+  angular.module('ashcan').component('newGameForm', {
+    controller: NewGameFormController,
+    templateUrl: '/tmpl/newgameform.html'
   });
 })();
 'use strict';
@@ -108,6 +106,24 @@
   angular.module('ashcan').component('home', {
     controller: HomeController,
     templateUrl: '/tmpl/home.html'
+  });
+})();
+'use strict';
+
+/* eslint-env angular, browser */
+
+(function () {
+  function IndexController() {
+    var vm = this;
+
+    vm.$onInit = function init() {
+      vm.header = 'INDEX';
+    };
+  }
+
+  angular.module('ashcan').component('index', {
+    controller: IndexController,
+    templateUrl: '/tmpl/index.html'
   });
 })();
 'use strict';

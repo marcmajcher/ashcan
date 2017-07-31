@@ -26,7 +26,8 @@ const lintable = [
   'src/js/**/*.js',
   'test/**/*.js',
   '!node_modules/**',
-  '!app/static/**'
+  '!app/static/**',
+  '!src/js/_lib/**'
 ];
 
 gulp.task('default', ['clean', 'build', 'watch', 'nodemon']);
