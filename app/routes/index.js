@@ -23,7 +23,7 @@ router.post('/gsignin', (req, res, next) => {
           if (Array.isArray(response)) {
             response = response[0];
           }
-          delete response.id;
+
           req.session.user = response;
           res.send(response);
         })

@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  /* eslint-env node */
+  /* eslint-env browser */
 
   function gapiService($rootScope, $http) {
     this.profile = {

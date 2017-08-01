@@ -79,33 +79,35 @@
 /* eslint-env angular, browser */
 
 (function () {
-  function NewGameFormController() {
+  function NewGameFormController(ProjectService) {
     var vm = this;
 
-    vm.$onInit = function onInit() {};
+    vm.$onInit = function onInit() {
+      vm.clear();
+    };
+
+    vm.createGame = function createGame() {
+      // validate
+      // do post via GameService
+      ProjectService.createProject(vm.game).then(function (response) {
+        console.log(response); // eslint-disable-line
+      });
+      // display working spinner
+      //   on good, alert and dismiss
+      //   on bad, alert
+      vm.clear();
+    };
+
+    vm.clear = function clear() {
+      vm.game = {};
+    };
   }
+
+  NewGameFormController.$inject = ['ProjectService'];
 
   angular.module('ashcan').component('newGameForm', {
     controller: NewGameFormController,
     templateUrl: '/tmpl/newgameform.html'
-  });
-})();
-'use strict';
-
-/* eslint-env node */
-
-(function () {
-  function HomeController(GapiService) {
-    var vm = this;
-
-    vm.$onInit = function init() {
-      vm.profile = GapiService.profile;
-    };
-  }
-
-  angular.module('ashcan').component('home', {
-    controller: HomeController,
-    templateUrl: '/tmpl/home.html'
   });
 })();
 'use strict';
@@ -128,10 +130,28 @@
 })();
 'use strict';
 
+/* eslint-env node */
+
+(function () {
+  function HomeController(GapiService) {
+    var vm = this;
+
+    vm.$onInit = function init() {
+      vm.profile = GapiService.profile;
+    };
+  }
+
+  angular.module('ashcan').component('home', {
+    controller: HomeController,
+    templateUrl: '/tmpl/home.html'
+  });
+})();
+'use strict';
+
 (function () {
   'use strict';
 
-  /* eslint-env node */
+  /* eslint-env browser */
 
   function gapiService($rootScope, $http) {
     this.profile = {
@@ -216,4 +236,29 @@
   gapiService.$inject = ['$rootScope', '$http'];
 
   angular.module('ashcan').service('GapiService', gapiService);
+})();
+'use strict';
+
+(function () {
+  'use strict';
+
+  var projectRoute = '/api/project';
+
+  function ProjectService($http, $q) {
+    this.getProject = function getProject() {};
+
+    this.createProject = function createProject(data) {
+      return $q(function (resolve, reject) {
+        $http.post(projectRoute, data).then(function (project) {
+          resolve(project.data);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+  }
+
+  ProjectService.$inject = ['$http', '$q'];
+
+  angular.module('ashcan').service('ProjectService', ProjectService);
 })();
