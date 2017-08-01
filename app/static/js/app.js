@@ -21,7 +21,7 @@
 
   routeConfig.$inject = ['$stateProvider', '$locationProvider'];
 
-  angular.module('ashcan', ['ui.router', 'blockUI']).config(routeConfig);
+  angular.module('ashcan', ['ui.router', 'blockUI', 'ui.bootstrap']).config(routeConfig);
 })();
 'use strict';
 
@@ -77,6 +77,7 @@
 'use strict';
 
 /* eslint-env angular, browser */
+/* globals $ */
 
 (function () {
   function NewGameFormController(ProjectService) {
@@ -88,13 +89,17 @@
 
     vm.createGame = function createGame() {
       // TK validate
-      // TK display working spinner
       ProjectService.createProject(vm.game).then(function (response) {
-        console.log(response); // eslint-disable-line
+        if (response.status === 'ok') {
+          $('#newGameModal').modal('hide'); // TK do this the right way, not like this
+          vm.clear();
+        } else {
+          // something went wrong
+          console.log(response); // eslint-disable-line
+        }
+      }).catch(function (error) {
+        console.log(error); // eslint-disable-line
       });
-      //   on good, alert and dismiss
-      //   on bad, alert
-      vm.clear();
     };
 
     vm.clear = function clear() {

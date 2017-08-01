@@ -20,5 +20,5 @@
 
   routeConfig.$inject = ['$stateProvider', '$locationProvider'];
 
-  angular.module('ashcan', ['ui.router', 'blockUI']).config(routeConfig);
+  angular.module('ashcan', ['ui.router', 'blockUI', 'ui.bootstrap']).config(routeConfig);
 })();
