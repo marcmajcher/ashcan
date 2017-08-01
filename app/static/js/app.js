@@ -21,7 +21,7 @@
 
   routeConfig.$inject = ['$stateProvider', '$locationProvider'];
 
-  angular.module('ashcan', ['ui.router']).config(routeConfig);
+  angular.module('ashcan', ['ui.router', 'blockUI']).config(routeConfig);
 })();
 'use strict';
 
@@ -87,12 +87,11 @@
     };
 
     vm.createGame = function createGame() {
-      // validate
-      // do post via GameService
+      // TK validate
+      // TK display working spinner
       ProjectService.createProject(vm.game).then(function (response) {
         console.log(response); // eslint-disable-line
       });
-      // display working spinner
       //   on good, alert and dismiss
       //   on bad, alert
       vm.clear();

@@ -11,13 +11,12 @@
     };
 
     vm.createGame = function createGame() {
-      // validate
-      // do post via GameService
+      // TK validate
+      // TK display working spinner
       ProjectService.createProject(vm.game)
         .then((response) => {
           console.log(response); // eslint-disable-line
         });
-      // display working spinner
       //   on good, alert and dismiss
       //   on bad, alert
       vm.clear();
