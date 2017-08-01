@@ -90,7 +90,7 @@
     vm.createGame = function createGame() {
       // TK validate
       ProjectService.createProject(vm.game).then(function (response) {
-        if (response.status === 'ok') {
+        if (response.status === 200) {
           $('#newGameModal').modal('hide'); // TK do this the right way, not like this
           vm.clear();
         } else {
@@ -248,21 +248,15 @@
 
   var projectRoute = '/api/project';
 
-  function ProjectService($http, $q) {
+  function ProjectService($http) {
     this.getProject = function getProject() {};
 
     this.createProject = function createProject(data) {
-      return $q(function (resolve, reject) {
-        $http.post(projectRoute, data).then(function (project) {
-          resolve(project.data);
-        }, function (err) {
-          reject(err);
-        });
-      });
+      return $http.post(projectRoute, data);
     };
   }
 
-  ProjectService.$inject = ['$http', '$q'];
+  ProjectService.$inject = ['$http'];
 
   angular.module('ashcan').service('ProjectService', ProjectService);
 })();

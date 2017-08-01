@@ -15,7 +15,7 @@
       // TK validate
       ProjectService.createProject(vm.game)
         .then((response) => {
-          if (response.status === 'ok') {
+          if (response.status === 200) {
             $('#newGameModal').modal('hide'); // TK do this the right way, not like this
             vm.clear();
           }

@@ -3,25 +3,17 @@
 
   const projectRoute = '/api/project';
 
-  function ProjectService($http, $q) {
+  function ProjectService($http) {
     this.getProject = function getProject() {
 
     };
 
     this.createProject = function createProject(data) {
-      return $q((resolve, reject) => {
-        $http.post(projectRoute, data)
-          .then((project) => {
-              resolve(project.data);
-            },
-            (err) => {
-              reject(err);
-            });
-      });
+      return $http.post(projectRoute, data);
     };
   }
 
-  ProjectService.$inject = ['$http', '$q'];
+  ProjectService.$inject = ['$http'];
 
   angular.module('ashcan').service('ProjectService', ProjectService);
 })();
